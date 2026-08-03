@@ -8,8 +8,6 @@ export const LANGUAGES = [
   { code: "zh", label: "Chinês", promptName: "Simplified Chinese", dir: "ltr" },
   { code: "ko", label: "Coreano", promptName: "Korean", dir: "ltr" },
   { code: "ar", label: "Árabe", promptName: "Arabic", dir: "rtl" },
-  // promptName null = so revisa a ortografia, nao traduz
-  { code: "pt-BR", label: "Português (só revisar)", promptName: null, dir: "ltr" },
 ] as const satisfies ReadonlyArray<{
   code: string
   label: string
