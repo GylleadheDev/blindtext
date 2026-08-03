@@ -1,26 +1,485 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------------------------------------------------------------------------
+   Tokens do app. Aliasam os do shadcn acima — nao criam um segundo vocabulario.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* em (nao px) pra o borrao acompanhar o tamanho da fonte em qualquer breakpoint */
+  --veu-raio: 0.42em;
+  --veu-tinta: var(--foreground);
+
+  /* O borrao nao escala linear com o corpo: 0.42em num titulo de 96px viraria
+     mancha. Calibragem propria pro display — forte o bastante pra a palavra nao
+     se deixar ler em repouso. */
+  --veu-raio-titulo: 0.3em;
+
+  --dur-rapido: 120ms;
+  --dur-normal: 220ms;
+  --dur-lento: 380ms;
+  /* Ciclo do titulo: digita (0-22%) · abre folga (22-24%) · segura (24-69%) ·
+     fecha folga (69-71%) · apaga (71-83%) · vazio (83-100%).
+     Todas as porcentagens abaixo se referem a ele. */
+  --dur-ciclo: 4.4s;
+  --dur-piscada: 2.2s;
+  --ease-saida: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* estado resolvido por atributo — nenhum mapa de estilo em JS */
+[data-espiando="true"] {
+  --veu-raio: 0em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-rapido: 0ms;
+    --dur-normal: 0ms;
+    --dur-lento: 0ms;
+  }
+}
+
+@layer components {
+  /* Borra APENAS os glifos. O caret e pintado por caret-color, que filter/text-shadow
+     nao alcancam — e por isso o cursor continua nitido. */
+  .veu {
+    color: transparent;
+    /* iOS Safari ignora `color` em campos de formulario sem isto */
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 var(--veu-raio) var(--veu-tinta),
+      0 0 var(--veu-raio) var(--veu-tinta);
+    caret-color: var(--primary);
+    transition: text-shadow var(--dur-normal) var(--ease-saida);
+  }
+
+  .veu::placeholder {
+    color: var(--muted-foreground);
+    -webkit-text-fill-color: currentColor;
+    text-shadow: none;
+  }
+
+  .veu::selection {
+    color: transparent;
+    background: color-mix(in oklab, var(--primary) 25%, transparent);
+  }
+
+  .aparecer {
+    animation: aparecer var(--dur-lento) var(--ease-saida) both;
+  }
+
+  /* -------------------------------------------------------------------------
+     Titulo: a palavra e um vulto, o cursor e uma lamina. Mesma mecanica do
+     campo de texto (`.veu`), so que o cursor aqui e uma BORDA — text-shadow
+     borra glifo, nunca caixa, entao a borda atravessa o veu intacta.
+     ------------------------------------------------------------------------- */
+  .titulo {
+    --veu-raio: var(--veu-raio-titulo);
+    --tracking: -0.04em;
+    --cursor-largura: 0.075em;
+    --cursor-altura: 0.78em;
+
+    /* `1ch` = avanco de um glifo em fonte mono, e o letter-spacing entra DEPOIS
+       de cada caractere — sem somar o tracking aqui a caixa fica mais larga que
+       o texto e o cursor descola do ultimo glifo. */
+    --largura-texto: calc(var(--letras) * (1ch + var(--tracking)));
+    --avanco-cursor: calc(var(--largura-texto) + 0.05em);
+
+    /* a caixa reserva texto + cursor, e ancora o posicionamento dele */
+    position: relative;
+    width: calc(var(--avanco-cursor) + var(--cursor-largura));
+    white-space: nowrap;
+    margin-inline: auto;
+    font-size: clamp(2.5rem, 14vw, 6rem);
+    font-weight: 500;
+    /* 1.2 e nao 1: com overflow:hidden uma caixa de 1em corta as ascendentes
+       do b/l/d/t, que passam do em-box da fonte. */
+    line-height: 1.2;
+    letter-spacing: var(--tracking);
+
+    /* Tres camadas em vez das duas do `.veu`: raio maior espalha a mesma tinta
+       numa area maior, entao sem a camada extra o vulto sairia palido em vez de
+       ilegivel. No hover o raio vai a zero e as tres se sobrepoem no glifo,
+       deixando a palavra solida. */
+    text-shadow:
+      0 0 var(--veu-raio) var(--veu-tinta),
+      0 0 var(--veu-raio) var(--veu-tinta),
+      0 0 var(--veu-raio) var(--veu-tinta);
+  }
+
+  .titulo:hover {
+    --veu-raio: 0em;
+  }
+
+  /* clip-path e nao `overflow: hidden`: overflow recorta os QUATRO lados, o que
+     decepava o borrao no topo e na base da palavra inteira. Com inset() os
+     valores negativos deixam a mancha vazar em cima, embaixo e a esquerda, e so
+     a borda direita varre o texto. steps() corta na fronteira exata de cada
+     letra — e, borrado, um corte impreciso seria invisivel de qualquer forma. */
+  .titulo-clip {
+    display: inline-block;
+    white-space: nowrap;
+    animation: digitar var(--dur-ciclo) steps(9, end) 250ms infinite both;
+  }
+
+  .titulo-cursor {
+    position: absolute;
+    inset-block-end: 0.22em;
+    inset-inline-start: 0;
+    width: var(--cursor-largura);
+    height: var(--cursor-altura);
+    background: var(--primary);
+    /* posicao de repouso = fim da palavra, pra quem pediu menos movimento */
+    transform: translateX(var(--avanco-cursor));
+    /* Andar e piscar no MESMO ciclo. Em dois tempos separados eles saem de fase
+       e uma hora as letras aparecem com o cursor apagado — parece defeito. */
+    animation: cursor-digitando var(--dur-ciclo) steps(9, end) 250ms infinite both;
+  }
+
+  /* -------------------------------------------------------------------------
+     Olho desenhado: pisca so no hover.
+     ------------------------------------------------------------------------- */
+  /* Uma cor so, herdada: traco e pupila saem juntos, sem regra extra.
+     Tinta cheia em repouso — o hover responde com a piscada, nao com cor. */
+  .olho {
+    color: var(--foreground);
+  }
+
+  .olho-traco {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .olho-globo,
+  .olho-tampa {
+    transform-box: view-box;
+    transform-origin: 60px 43px;
+  }
+
+  .olho-tampa {
+    opacity: 0;
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Percentuais nos quatro lados pra interpolar sem misturar unidade. Negativo =
+   a area visivel passa da caixa, entao o borrao nao encosta na faca.
+   O `steps(9, end)` do atalho vale pra CADA intervalo: 9 passos pra escrever as
+   9 letras, 9 pra apagar, e nos intervalos de pausa o valor nao muda.
+
+   A varredura vai de 100% ate 0% — exatamente a largura do texto, nem um passo
+   alem. Os -8% de folga pro borrao entram DEPOIS, em intervalo proprio: varridos
+   junto, faziam o recorte andar 1,08 letra por passo contra 1 letra do cursor, e
+   os dois chegavam ao fim em momentos diferentes. */
+@keyframes digitar {
+  0% {
+    clip-path: inset(-30% 100% -30% -8%);
+  }
+  22% {
+    clip-path: inset(-30% 0% -30% -8%);
+  }
+  24% {
+    clip-path: inset(-30% -8% -30% -8%);
+  }
+  69% {
+    clip-path: inset(-30% -8% -30% -8%);
+  }
+  71% {
+    clip-path: inset(-30% 0% -30% -8%);
+  }
+  83% {
+    clip-path: inset(-30% 100% -30% -8%);
+  }
+  100% {
+    clip-path: inset(-30% 100% -30% -8%);
+  }
+}
+
+/* Sólido enquanto escreve e enquanto apaga; pisca só nas duas pausas — é o que
+   um cursor de verdade faz. Cada quadro de opacidade dura ~12% do ciclo (≈530ms),
+   o ritmo padrão de terminal. */
+@keyframes cursor-digitando {
+  /* Os quadros de transform batem com os da varredura em `digitar`: 0-22% pra
+     escrever, 71-83% pra apagar. Mesmo intervalo, mesmos 9 passos, mesma
+     distancia — e por isso texto e cursor param juntos. */
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  22% {
+    transform: translateX(var(--avanco-cursor));
+    opacity: 1;
+  }
+
+  36% {
+    opacity: 1;
+  }
+  37% {
+    opacity: 0;
+  }
+  48% {
+    opacity: 0;
+  }
+  49% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  61% {
+    opacity: 0;
+  }
+  68% {
+    opacity: 0;
+  }
+
+  71% {
+    transform: translateX(var(--avanco-cursor));
+    opacity: 1;
+  }
+  83% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  91% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Duas piscadas por ciclo, a segunda mais curta: ritmo de piscada e irregular. */
+@keyframes piscar-olho {
+  0%,
+  34% {
+    transform: scaleY(1);
+  }
+  40%,
+  44% {
+    transform: scaleY(0.04);
+  }
+  50%,
+  84% {
+    transform: scaleY(1);
+  }
+  88%,
+  91% {
+    transform: scaleY(0.04);
+  }
+  96%,
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes piscar-tampa {
+  0%,
+  36% {
+    opacity: 0;
+  }
+  40%,
+  44% {
+    opacity: 1;
+  }
+  49%,
+  85% {
+    opacity: 0;
+  }
+  88%,
+  91% {
+    opacity: 1;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (hover: hover) {
+  .olho:hover .olho-globo {
+    animation: piscar-olho var(--dur-piscada) ease-in-out infinite;
+  }
+  .olho:hover .olho-tampa {
+    animation: piscar-tampa var(--dur-piscada) ease-in-out infinite;
+  }
+}
+
+/* Sem hover (toque), revelar o titulo ao pressionar. */
+@media (hover: none) {
+  .titulo:active {
+    --veu-raio: 0em;
+  }
+}
+
+/* A query certa pra isto nao e reduced-motion: o borrao nao e movimento, e
+   contraste. Quem pede contraste alto recebe o titulo legivel. */
+@media (prefers-contrast: more) {
+  .titulo {
+    --veu-raio-titulo: 0em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* palavra inteira de cara; o cursor cai na posicao de repouso do transform
+     base, no fim da palavra, parado e aceso */
+  .titulo-clip,
+  .titulo-cursor {
+    animation: none;
+  }
+  .olho:hover .olho-globo,
+  .olho:hover .olho-tampa {
+    animation: none;
+  }
 }
