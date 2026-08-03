@@ -46,8 +46,29 @@ export function BlindComposer() {
   const [copyState, setCopyState] = React.useState<CopyState>("idle")
   const runIdRef = React.useRef(0)
   const copyTimerRef = React.useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  // Cada limpeza total invalida traduções em voo: uma resposta que chega depois
+  // do Ctrl+Backspace não pode repovoar a tela que acabou de esvaziar.
+  const clearGenerationRef = React.useRef(0)
 
   React.useEffect(() => () => clearTimeout(copyTimerRef.current), [])
+
+  // Ctrl+Backspace limpa campo E resultado de uma vez. Fora do textarea também:
+  // é um atalho global do app, não um gesto de edição do campo.
+  React.useEffect(() => {
+    const limpar = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === "Backspace") {
+        event.preventDefault()
+        clearGenerationRef.current += 1
+        setText("")
+        setResult(null)
+        setFailure(null)
+        setCopyState("idle")
+        clearTimeout(copyTimerRef.current)
+      }
+    }
+    window.addEventListener("keydown", limpar)
+    return () => window.removeEventListener("keydown", limpar)
+  }, [])
 
   const trimmed = text.trim()
   const blocked = loading || trimmed.length === 0 || text.length > MAX_CHARS
@@ -78,12 +99,18 @@ export function BlindComposer() {
     setResult(null)
     setCopyState("idle")
 
+    // Linha de chegada da geração: se o Ctrl+Backspace rodar enquanto a
+    // tradução está no ar, essa resposta é lixo e é descartada abaixo.
+    const generation = clearGenerationRef.current
+
     try {
       const response = await withTimeout(
         translate({ text, language: languageCode }),
         CLIENT_TIMEOUT_MS,
         "translate"
       )
+
+      if (generation !== clearGenerationRef.current) return
 
       if (response.ok) {
         runIdRef.current += 1
@@ -99,6 +126,8 @@ export function BlindComposer() {
         setFailure({ message: response.message, traceId: response.traceId })
       }
     } catch (error) {
+      // Depois de limpar tudo, nem o caminho de erro repovoa a tela.
+      if (generation !== clearGenerationRef.current) return
       console.error("[blindtext] translate", error)
       setFailure({
         message:
